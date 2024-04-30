@@ -1,10 +1,10 @@
-package com.thisspring.park;
+package com.parkgihyeon.product.management;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ParkApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
