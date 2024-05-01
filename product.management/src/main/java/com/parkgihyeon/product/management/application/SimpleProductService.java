@@ -14,16 +14,19 @@ public class SimpleProductService {
 
     private ListProductRepository listProductRepository;
     private ModelMapper modelMapper;
+    private ValidationService validationService;
 
     @Autowired
-    public SimpleProductService(ListProductRepository listProductRepository, ModelMapper modelMapper) {
+    public SimpleProductService(ListProductRepository listProductRepository, ModelMapper modelMapper, ValidationService validationService) {
         this.listProductRepository = listProductRepository;
         this.modelMapper = modelMapper;
+        this.validationService = validationService;
     }
-
 
     public ProductDTO add(ProductDTO productDTO){
         Product product = modelMapper.map(productDTO, Product.class);
+        validationService.checkValid(product);
+
         Product savedProduct = listProductRepository.add(product);
         ProductDTO savedProductDTO = modelMapper.map(savedProduct, ProductDTO.class);
         return savedProductDTO;

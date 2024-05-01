@@ -2,6 +2,7 @@ package com.parkgihyeon.product.management.presentation;
 
 import com.parkgihyeon.product.management.application.SimpleProductService;
 import com.parkgihyeon.product.management.domain.Product;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO){
+    public ProductDTO createProduct(@Valid @RequestBody ProductDTO productDTO){
         return simpleProductService.add(productDTO);
     }
 
