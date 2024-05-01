@@ -30,4 +30,13 @@ public class ProductDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public ProductDTO() {
+    }
+
+    public ProductDTO(@NotNull String name, @NotNull Integer price, @NotNull Integer amount) {
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
 }
