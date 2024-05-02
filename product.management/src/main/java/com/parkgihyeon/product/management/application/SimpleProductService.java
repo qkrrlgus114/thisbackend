@@ -3,9 +3,7 @@ package com.parkgihyeon.product.management.application;
 import com.parkgihyeon.product.management.domain.Product;
 import com.parkgihyeon.product.management.domain.ProductRepository;
 import com.parkgihyeon.product.management.presentation.ProductDTO;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,28 +12,26 @@ import java.util.List;
 public class SimpleProductService {
 
     private ProductRepository productRepository;
-    private ModelMapper modelMapper;
     private ValidationService validationService;
 
     @Autowired
-    public SimpleProductService(ProductRepository productRepository, ModelMapper modelMapper, ValidationService validationService) {
+    public SimpleProductService(ProductRepository productRepository, ValidationService validationService) {
         this.productRepository = productRepository;
-        this.modelMapper = modelMapper;
         this.validationService = validationService;
     }
 
     public ProductDTO add(ProductDTO productDTO){
-        Product product = modelMapper.map(productDTO, Product.class);
+        Product product = ProductDTO.toEntity(productDTO);
         validationService.checkValid(product);
 
         Product savedProduct = productRepository.add(product);
-        ProductDTO savedProductDTO = modelMapper.map(savedProduct, ProductDTO.class);
+        ProductDTO savedProductDTO = ProductDTO.toDTO(savedProduct);
         return savedProductDTO;
     }
 
     public ProductDTO findById(Long id){
         Product product = productRepository.findById(id);
-        ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+        ProductDTO productDTO = ProductDTO.toDTO(product);
         return productDTO;
     }
 
@@ -43,7 +39,7 @@ public class SimpleProductService {
         List<Product> products = productRepository.findAll();
 
         List<ProductDTO> productDTOs = products.stream()
-                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .map(product -> ProductDTO.toDTO(product))
                 .toList();
         return productDTOs;
     }
@@ -52,14 +48,14 @@ public class SimpleProductService {
         List<Product> productList = productRepository.findByNameContaining(name);
 
         return productList.stream()
-                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .map(product -> ProductDTO.toDTO(product))
                 .toList();
     }
 
     public ProductDTO update(ProductDTO productDTO){
-        Product product = modelMapper.map(productDTO, Product.class);
+        Product product = ProductDTO.toEntity(productDTO);
         Product updateProduct = productRepository.update(product);
-        ProductDTO updateProductDTO = modelMapper.map(updateProduct, ProductDTO.class);
+        ProductDTO updateProductDTO = ProductDTO.toDTO(updateProduct);
 
         return updateProductDTO;
     }

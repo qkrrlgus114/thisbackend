@@ -18,8 +18,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// 모델 매퍼
-	implementation 'org.modelmapper:modelmapper:3.1.0'
 	// 유효성 검사
 	implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.1'
 	// mysql

@@ -26,14 +26,4 @@ public class Application {
 		};
 	}
 
-	@Bean
-	public ModelMapper modelMapper(){
-		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.getConfiguration()
-				.setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
-				.setFieldMatchingEnabled(true);
-
-		return modelMapper;
-	}
-
 }
